@@ -1,16 +1,14 @@
-package jb;
-
-//Java program to find the length of the largest
-//region in boolean 2D-matrix
-import java.io.*;
-import java.util.*;
+import java.util.Collections;
+import java.util.ArrayList;
+import java.util.List;
 
 public class magic {
-	static int ROW, COL, count;
+	static int ROW, COL, riverSize;
 
 	// A function to check if a given cell (row, col)
 	// can be included in find
-	static boolean check(int[][] M, int row, int col, boolean[][] visited)
+	static boolean check(int[][] M, int row, int col,
+						boolean[][] visited)
 	{
 		// row number is in range, column number is in
 		// range and value is 1 and not yet visited
@@ -23,7 +21,8 @@ public class magic {
 	// A utility function to do find for a 2D boolean
 	// matrix. It only considers the 8 neighbours as
 	// adjacent vertices
-	static void find(int[][] M, int row, int col, boolean[][] visited)
+	static void find(int[][] M, int row, int col,
+					boolean[][] visited)
 	{
 		// These arrays are used to get row and column
 		// numbers of 8 neighbours of a given cell
@@ -40,7 +39,7 @@ public class magic {
 					visited)) 
 			{
 				// increment region length by one
-				count++;
+				riverSize++;
 				find(M, row + rowNbr[k], col + colNbr[k],
 					visited);
 			}
@@ -49,11 +48,12 @@ public class magic {
 
 	// The main function that returns largest length region
 	// of a given boolean 2D matrix
-	static int getarray(int[][] M)
+	static List<Integer> getarray(int[][] M)
 	{
 		// Make a boolean array to mark visited cells.
 		// Initially all cells are unvisited
 		boolean[][] visited = new boolean[ROW][COL];
+		List<Integer> riversSize = new ArrayList<Integer>();
 
 		// Initialize result as 0 and traverse through the
 		// all cells of given matrix
@@ -68,15 +68,17 @@ public class magic {
 				{
 
 					// visited yet, then new region found
-					count = 1;
+					riverSize = 1;
 					find(M, i, j, visited);
-
-					// maximum region
-					result = Math.max(result, count);
+                    riversSize.add(riverSize);
+                    
 				}
 			}
 		}
-		return result;
+		
+		
+		Collections.sort(riversSize);
+		return  riversSize;
 	}
 
 	
@@ -118,15 +120,5 @@ public class magic {
 			System.out.println(getarray(arr3));	
 		
 		
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	}	
 }
-

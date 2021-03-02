@@ -1,12 +1,12 @@
 package jb;
 
-//Java program to find the length of the largest
-//region in boolean 2D-matrix
-import java.io.*;
-import java.util.*;
+
+import java.util.Collections;
+import java.util.ArrayList;
+import java.util.List;
 
 public class magic {
-	static int ROW, COL, count;
+	static int ROW, COL, riverSize;
 
 	// A function to check if a given cell (row, col)
 	// can be included in find
@@ -36,28 +36,26 @@ public class magic {
 		// Recur for all connected neighbours
 		for (int k = 0; k < 4; k++) 
 		{
-			if (check(M, row + rowNbr[k], col + colNbr[k],
-					visited)) 
+			if (check(M, row + rowNbr[k], col + colNbr[k], visited)) 
 			{
 				// increment region length by one
-				count++;
-				find(M, row + rowNbr[k], col + colNbr[k],
-					visited);
+				riverSize++;
+				find(M, row + rowNbr[k], col + colNbr[k], visited);
 			}
 		}
 	}
 
 	// The main function that returns largest length region
 	// of a given boolean 2D matrix
-	static int getarray(int[][] M)
+	static List<Integer> getarray(int[][] M)
 	{
 		// Make a boolean array to mark visited cells.
 		// Initially all cells are unvisited
 		boolean[][] visited = new boolean[ROW][COL];
+		List<Integer> riversSize = new ArrayList<Integer>();
 
 		// Initialize result as 0 and traverse through the
 		// all cells of given matrix
-		int result = 0;
 		for (int i = 0; i < ROW; i++) 
 		{
 			for (int j = 0; j < COL; j++) 
@@ -68,16 +66,20 @@ public class magic {
 				{
 
 					// visited yet, then new region found
-					count = 1;
+					riverSize = 1;
 					find(M, i, j, visited);
-
-					// maximum region
-					result = Math.max(result, count);
+                    riversSize.add(riverSize);
+                    
 				}
 			}
 		}
-		return result;
+		
+		
+		Collections.sort(riversSize);
+		return  riversSize;
 	}
+
+	
 
 	
 
@@ -85,9 +87,9 @@ public class magic {
 	public static void main(String args[])
 	{
 		int arr1[][] = { { 1, 0, 0, 1 },
-				{ 0, 0, 1, 0 },
-				{ 1, 0, 0, 0 },
-				{ 1, 0, 0, 0 } };
+					   { 0, 0, 1, 0 },
+					   { 1, 0, 1, 0 },
+					   { 1, 0, 1, 0 } };
 		ROW = 4;
 		COL = 4;
 	
@@ -96,9 +98,9 @@ public class magic {
 		
 				
 			int arr2[][] = { { 0, 0, 0, 1, 0, 0, 0, 1 },
-					{ 1, 1, 0, 0, 0, 0, 1, 0 },
-					{ 0, 0, 0, 0, 1, 1, 0, 1 },
-					{ 1, 1, 1, 0, 0, 0, 0, 0 } };
+						   { 1, 1, 0, 0, 0, 0, 1, 0 },
+					   	   { 0, 0, 0, 0, 1, 1, 0, 1 },
+						   { 1, 1, 1, 0, 0, 0, 0, 0 } };
 			ROW = 4;
 			COL = 8;
 
@@ -107,10 +109,10 @@ public class magic {
 	
 	
 			int arr3[][] = { { 0, 0, 0, 0, 1 },
-					{ 0, 1, 1, 1, 0 },
-					{ 0, 1, 0, 1, 0 },
-					{ 0, 1, 1, 1, 0 },
-					{ 1, 0, 0, 0, 0 } };
+						   { 0, 1, 1, 1, 0 },
+						   { 0, 1, 0, 1, 0 },
+						   { 0, 1, 1, 1, 0 },
+						   { 1, 0, 0, 0, 0 } };
 			ROW = 5;
 			COL = 5;
 

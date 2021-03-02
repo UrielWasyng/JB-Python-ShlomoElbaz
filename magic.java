@@ -10,8 +10,7 @@ public class magic {
 
 	// A function to check if a given cell (row, col)
 	// can be included in find
-	static boolean check(int[][] M, int row, int col,
-						boolean[][] visited)
+	static boolean check(int[][] M, int row, int col, boolean[][] visited)
 	{
 		// row number is in range, column number is in
 		// range and value is 1 and not yet visited
@@ -24,8 +23,7 @@ public class magic {
 	// A utility function to do find for a 2D boolean
 	// matrix. It only considers the 8 neighbours as
 	// adjacent vertices
-	static void find(int[][] M, int row, int col,
-					boolean[][] visited)
+	static void find(int[][] M, int row, int col, boolean[][] visited)
 	{
 		// These arrays are used to get row and column
 		// numbers of 8 neighbours of a given cell
